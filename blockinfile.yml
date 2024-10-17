@@ -1,0 +1,11 @@
+---
+- name: blockinfile
+  hosts: rh92-0
+  tasks:
+    - name: block
+      blockinfile:
+        dest: "/tmp/abc.txt"
+        insertafter: EOF
+        marker: ""
+        content: "abcdefg"
+        create: true
