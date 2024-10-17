@@ -7,5 +7,5 @@
         dest: "/tmp/abc.txt"
         insertafter: EOF
         marker: ""
-        content: "abcdefg"
+        content: "abcdefghijlmnopqrstuvwxyz"
         create: true
