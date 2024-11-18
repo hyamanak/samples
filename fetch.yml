@@ -13,6 +13,5 @@
     - name: fetch hosts file to controller node
       ansible.builtin.fetch:
         src: "/etc/hosts"
-        dest: "/tmp/collected_files/{{ inventory_hostname }}.txt"
+        dest: "/tmp/collected_files/{{ inventory_hostname}}.txt"
         flat: yes
-      delegate_to: rh92-0  # コントローラーノードのホスト名を指定
