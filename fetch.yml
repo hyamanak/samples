@@ -16,3 +16,10 @@
         src: "/etc/hosts"
         dest: "/tmp/collected_files/{{ inventory_hostname}}.txt"
         flat: yes
+
+    - name: debug src file on remote hosts
+      ansible.builtin.command:
+        cmd: cat /etc/hosts
+      register: remote_hosts_content
+    - debug:
+        var: remote_hosts_content.stdout
