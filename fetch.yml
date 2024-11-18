@@ -1,6 +1,6 @@
 ---
 - name: collect hosts
-  hosts: all
+  hosts: 192.168.221.131
   become: true
   tasks:
     - name: create directory on controller node
@@ -17,9 +17,3 @@
         dest: "/tmp/collected_files/{{ inventory_hostname}}.txt"
         flat: yes
 
-    - name: debug src file on remote hosts
-      ansible.builtin.command:
-        cmd: cat /etc/hosts
-      register: remote_hosts_content
-    - debug:
-        var: remote_hosts_content.stdout
