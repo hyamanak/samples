@@ -11,6 +11,7 @@
         mode: '0755'
 
     - name: fetch hosts file to controller node
+      delegate_to: rh92-0
       ansible.builtin.fetch:
         src: "/etc/hosts"
         dest: "/tmp/collected_files/{{ inventory_hostname}}.txt"
