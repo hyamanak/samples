@@ -14,6 +14,6 @@
       delegate_to: rh92-0
       ansible.builtin.fetch:
         src: "/etc/hosts"
-        dest: "/tmp/{{ inventory_hostname}}.txt"
+        dest: "/tmp/hosts.txt"
         flat: yes
 
