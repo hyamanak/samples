@@ -4,7 +4,7 @@
   become: true
   tasks:
     - name: create directory on controller node
-      delegate_to: controller-node-hostname  # コントローラーノードのホスト名を指定
+      delegate_to: rh92-0  # コントローラーノードのホスト名を指定
       ansible.builtin.file:
         path: "/tmp/collected_files"
         state: directory
@@ -15,4 +15,4 @@
         src: "/etc/hosts"
         dest: "/tmp/{{ inventory_hostname }}.txt"
         flat: yes
-      delegate_to: controller-node-hostname  # コントローラーノードのホスト名を指定
+      delegate_to: rh92-0  # コントローラーノードのホスト名を指定
