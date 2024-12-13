@@ -1,0 +1,7 @@
+- name: Check if hosts are available
+  hosts: abc.example.com
+  tasks:
+    - name: Fail if no hosts match
+      debug:
+        msg: "Host {{ inventory_hostname }} is available"
+      failed_when: inventory_hostname is not defined
