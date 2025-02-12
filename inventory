@@ -1,0 +1,39 @@
+#inventory
+#
+#省略可
+#[localhost]
+
+#-----
+#serverkitchen
+[serverkitchen]
+#本番(chf03p)/開発環境(chf04p)
+gc0tchf0Xp_serverkitchen ansible_host="{{manager_server_ip}}"
+
+#-----
+#target_servers
+[windows]
+#host_name ansible_host=xxx.xxx.xxx.xxx
+
+[windows:vars]
+ansible_port=5985
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_operation_timeout_sec=20
+ansible_winrm_read_timeout_sec=60
+
+[rhel]
+gc0trhel9test01p ansible_host=172.21.160.165 #category=rhel
+gc0trhel9test02p ansible_host=172.21.160.166 #category=rhel
+#host_name ansible_host=xxx.xxx.xxx.xxx
+
+
+#----------
+#*****a.ide AAP動確用 ※後で削除
+[hyojunka]
+gc0trhel9test01p ansible_host=172.21.160.165 #サンプル動作用
+gc0trhel9test02p ansible_host=172.21.160.166 #サンプル動作用
+
+#[hyojunka:vars]
+#ansible_user=diruser1
+#ansible_password=diruser1
+#ansible_become_pass=111111
