@@ -1,0 +1,25 @@
+---
+- hosts: windows
+  gather_facts: no
+
+  tasks:
+    - name: Check current user (without become)
+      ansible.windows.win_shell: whoami
+      register: normal_user
+
+    - name: Display normal user
+      ansible.builtin.debug:
+        msg: "Without become: {{ normal_user.stdout }}"
+
+    - name: Check current user (with become)
+      ansible.windows.win_shell: whoami
+      become: true
+      become_method: runas
+      become_user: "{{ ansible_user }}"
+      become_password: "{{ ansible_password }}"
+      become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+      register: become_user
+
+    - name: Display become user
+      ansible.builtin.debug:
+        msg: "With become: {{ become_user.stdout }}"
