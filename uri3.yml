@@ -1,0 +1,41 @@
+- name: Test Ansible uri module JSON response (Fixed)
+  hosts: rh95aap24
+  gather_facts: no
+  tasks:
+    - name: Make API request with Content-Type override
+      uri:
+        url: https://jsonplaceholder.typicode.com/todos/1  # 本番APIの場合は変更
+        method: GET
+        return_content: yes
+        headers:
+          Accept: application/ld+json  # JSON 自動パースが無効化される可能性のあるContent-Type
+      register: response
+
+    - name: Debug full response
+      debug:
+        var: response
+
+    - name: Check Content-Type from API
+      debug:
+        var: response.content_type
+
+    - name: Check if json field exists
+      debug:
+        msg: "JSON field exists"
+      when: response.json is defined
+
+    - name: Manually parse JSON if json field is missing
+      set_fact:
+        response_parsed: "{{ response.json if response.json is defined else (response.content | from_json) }}"
+
+    - name: Debug parsed JSON
+      debug:
+        var: response_parsed
+
+    - name: Ensure powerstate check works
+      debug:
+        msg: "Powerstate: {{ response_parsed.powerstate | default('MISSING') }}"
+
+    - name: Ensure completed check works (Fallback Key)
+      debug:
+        msg: "Completed: {{ response_parsed.completed | default('MISSING') }}"
