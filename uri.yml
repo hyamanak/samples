@@ -1,0 +1,16 @@
+- name: Test Ansible uri module JSON response failure
+  hosts: rh95aap24
+  gather_facts: no
+  tasks:
+    - name: Make API request with Content-Type override
+      uri:
+        url: https://jsonplaceholder.typicode.com/todos/1
+        method: GET
+        return_content: yes
+        headers:
+          Accept: application/ld+json  # JSON 自動パースが無効化される可能性のあるContent-Type
+      register: response
+
+    - name: Force failure by accessing json field
+      debug:
+        msg: "Powerstate: {{ response.json.powerstate }}"
