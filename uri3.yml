@@ -39,3 +39,7 @@
     - name: Ensure completed check works (Fallback Key)
       debug:
         msg: "Completed: {{ response_parsed.completed | default('MISSING') }}"
+
+    - name: print out variable
+      debug:
+        msg: "Here is the variable {{ abc }}"
