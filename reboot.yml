@@ -1,0 +1,24 @@
+- name: Simple reboot test on rh95
+  hosts: rh95.example.com
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Reboot the system
+      ansible.builtin.reboot:
+        msg: "Testing reboot on rh95"
+        connect_timeout: 30
+        reboot_timeout: 600
+        pre_reboot_delay: 0
+        post_reboot_delay: 0
+        test_command: whoami
+
+    - name: Wait until SSH is available (port 22)
+      ansible.builtin.wait_for:
+        port: 22
+        state: started
+        timeout: 300
+        delay: 30
+
+    - name: Gather facts after reboot
+      ansible.builtin.setup:
